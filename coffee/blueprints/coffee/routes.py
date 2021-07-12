@@ -18,6 +18,7 @@ def main():
              .filter(Event.available == True)
              .join(Section, Event.sections, isouter=True)
              .join(Reservation, Section.reservations, isouter=True)
+             .distinct(Section.name, Reservation.name)
              .filter(Reservation.user_id == None)
              .options(
                  contains_eager(Event.sections),
