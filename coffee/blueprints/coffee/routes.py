@@ -12,7 +12,7 @@ from .forms import RegistrationForm
 @coffee.route('/')
 def main():
     if flask.g.user is None:
-        return flask.render_template('telegram.html')
+        return flask.render_template('nologin.html')
 
     event = (flask.g.db.query(Event)
              .filter(Event.available == True)
@@ -89,7 +89,7 @@ def logout():
 @coffee.route('/book/<int:reservation_id>', methods=['GET', 'POST'])
 def book(reservation_id):
     if flask.g.user is None:
-        return flask.render_template('telegram.html')
+        return flask.render_template('nologin.html')
 
     reservation = (flask.g.db.query(Reservation)
                    .filter(Reservation.id == reservation_id)
@@ -131,7 +131,7 @@ def book(reservation_id):
 @coffee.route('/cancel/<int:reservation_id>')
 def cancel(reservation_id):
     if flask.g.user is None:
-        return flask.render_template('telegram.html')
+        return flask.render_template('nologin.html')
 
     reservation = (flask.g.db.query(Reservation)
                    .filter(Reservation.id == reservation_id)
