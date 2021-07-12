@@ -4,10 +4,7 @@
 {% else %}
 <div class="mb-3">
     <label class="form-label" for="{{ field.name }}">
-        {{ field.label.text
-            |render_template()
-            |markdown(inline=True)
-            |safe }}
+        {{ field.label.text }}
     </label>
     {{ field(class="form-control") }}
     {% if field.errors %}
@@ -17,10 +14,7 @@
     {% endif %}
     {% if field.description %}
     <div class="form-text">
-        {{ field.description
-            |render_template()
-            |markdown(inline=True)
-            |safe }}</div>
+        {{ field.description }}</div>
     {% endif %}
 </div>
 {% endif %}
