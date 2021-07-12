@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block main %}
 {% if user.reservations %}
 <h1>Твои записи</h1>
 <ul>
@@ -17,3 +19,4 @@
 {% endfor %}
 </p>
 {% endfor %}
+{% endblock %}
