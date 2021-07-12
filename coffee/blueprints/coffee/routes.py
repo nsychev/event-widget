@@ -57,7 +57,7 @@ def callback():
         )
 
 
-@coffee.route('/register', methods=['POST'])
+@coffee.route('/register', methods=['GET', 'POST'])
 def register():
     if 'telegram_id' not in flask.session:
         return flask.abort(400)
