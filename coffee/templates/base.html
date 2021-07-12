@@ -34,6 +34,10 @@
             form {
                 display: inline;
             }
+
+            strong {
+                font-weight: 600;
+            }
         </style>
     </head>
     <body>
@@ -42,6 +46,8 @@
             {% endblock %}
         </div>
         <script>
+            document.domain = 'itmo.ru';
+
             const fireMessage = function() {
                 const height = document.body.scrollHeight + 30;
                 window.parent.postMessage(`${height}px`, '*');
