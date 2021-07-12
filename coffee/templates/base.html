@@ -15,10 +15,15 @@
             {% endblock %}
         </div>
         <script>
-            window.addEventListener('DOMContentLoaded', function() {
-                const height = document.querySelector('body').scrollHeight;
+            const fireMessage = function() {
+                const height = document.body.scrollHeight;
                 window.parent.postMessage(`${height}px`, '*');
-            });
+            };
+
+            const resizeObserver = new ResizeObserver(fireMessage);
+            resizeObserver.observe(document.body)
+
+            window.addEventListener('DOMContentLoaded', fireMessage);
         </script>
     </body>
 </html>
