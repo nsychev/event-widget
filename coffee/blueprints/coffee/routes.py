@@ -18,7 +18,7 @@ def main():
              .filter(Event.available == True)
              .join(Section, Event.sections, isouter=True)
              .join(Reservation, Section.reservations, isouter=True)
-             .filter(Reservation.user_id is None)
+             .filter(Reservation.user_id == None)
              .options(
                  contains_eager(Event.sections),
                  contains_eager(Event.sections, Section.reservations)
