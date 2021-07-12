@@ -68,7 +68,8 @@ def register():
     if form.validate_on_submit():
         user = User(
             telegram_id=flask.session['telegram_id'],
-            name=form.name.data,
+            telegram_info=flask.session['telegram_info'],
+            name=form.name.data
         )
         flask.g.db.add(user)
         flask.g.db.commit()
