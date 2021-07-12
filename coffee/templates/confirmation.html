@@ -2,13 +2,12 @@
 {% block main %}
 <h1>Подтверди запись</h1>
 <p>Мероприятие: <strong>{{ reservation.section.event.name }}</strong>.<br/>
-<p>Комната: <strong>{{ reservation.section.name }}</strong>.<br/>
-<p>Слот: <strong>{{ reservation.name }}</strong></p>
+Комната: <strong>{{ reservation.section.name }}</strong>.<br/>
+Слот: <strong>{{ reservation.name }}</strong></p>
 
-<p>
-    <form method="POST" action="">
-        <button class="btn btn-success">Записаться</button>
-    </form>
-    <a href="{{ url_for('coffee.main') }}" class="btn btn-text">Назад</a>
-</p>
+<form method="POST" action="">
+    <button class="btn btn-primary">Записаться</button>
+</form>
+<a href="{{ url_for('coffee.main') }}" class="btn btn-text">Назад</a>
+
 {% endblock %}

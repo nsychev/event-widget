@@ -34,7 +34,6 @@ def main():
 
 @coffee.route('/callback')
 def callback():
-    print(flask.request.headers, flush=True, file=__import__('sys').stderr)
     if not utils.verify(flask.request, flask.current_app.config['TELEGRAM']['token']):
         return flask.abort(400)
 
@@ -96,10 +95,18 @@ def book(reservation_id):
                    .join(Section, Reservation.section, isouter=True)
                    .join(Event, Section.event, isouter=True)
                    .options(
-                        contains_eager(Reservation.section),
-                        contains_eager(Reservation.section, Section.event)
+                       contains_eager(Reservation.section),
+                       contains_eager(Reservation.section, Section.event)
                    )
                    .one())
+
+    other_reservation = (flask.g.db.query(Reservation)
+                          .filter(Reservation.user_id == flask.g.user.id)
+                          .filter(Reservation.section_id == reservation.section_id)
+                          .first())
+
+    if other_reservation is not None:
+        return flask.render_template('toomuch.html'), 409
 
     if reservation.user_id is not None:
         return flask.render_template('denied.html'), 409
