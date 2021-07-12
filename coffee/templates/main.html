@@ -1,0 +1,18 @@
+{% if user.reservations %}
+<h1>Твои записи</h1>
+<ul>
+{% for reservation in user.reservations %}
+<li>{{ reservation.section.name }} — {{ reservation.name }}. <a href="/cancel/{{ reservation.id }}" class="cancel">Отменить?</a></li>
+{% endfor %}
+</ul>
+
+<h1>Записаться</h1>
+
+{% for section in event.sections %}
+<h2>{{ section.name }}</h2>
+<p>
+{% for reservation in section.reservations %}
+<a href="/book/{{ reservation.id }}" class="book">{{ reservation.name }}</a>
+{% endfor %}
+</p>
+{% endfor %}

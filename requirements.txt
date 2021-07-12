@@ -1,0 +1,7 @@
+flask
+flask-wtf
+gunicorn
+psycopg2-binary
+pyyaml
+sqlalchemy
+wtforms

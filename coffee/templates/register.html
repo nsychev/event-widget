@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% from "field.html" import render_field %}
+{% block main %}
+<div class="container">
+    <h1>Регистрация</h1>
+    <form method="POST" action="/register">
+        {{ form.csrf_token }}
+        {{ render_field(form.name) }}
+        <button class="btn btn-primary">Далее</button>
+    </form>
+</div>
+{% endblock %}
