@@ -101,9 +101,9 @@ def book(reservation_id):
                    .one())
 
     other_reservation = (flask.g.db.query(Reservation)
-                          .filter(Reservation.user_id == flask.g.user.id)
-                          .filter(Reservation.section_id == reservation.section_id)
-                          .first())
+                         .filter(Reservation.user_id == flask.g.user.id)
+                         .filter(Reservation.section_id == reservation.section_id)
+                         .first())
 
     if other_reservation is not None:
         return flask.render_template('toomuch.html'), 409
