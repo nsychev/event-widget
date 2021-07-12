@@ -4,7 +4,7 @@
 <h1>Твои записи</h1>
 <ul>
 {% for reservation in user.reservations %}
-<li>{{ reservation.section.name }} — {{ reservation.name }}. <a href="/cancel/{{ reservation.id }}" class="cancel">Отменить?</a></li>
+<li>{{ reservation.section.name }} — {{ reservation.name }}. <a href="{{ url_for('coffee.cancel', reservation_id=reservation.id) }}" class="cancel">Отменить?</a></li>
 {% endfor %}
 </ul>
 {% endif %}
@@ -15,7 +15,7 @@
 <h2>{{ section.name }}</h2>
 <p>
 {% for reservation in section.reservations %}
-<a href="/book/{{ reservation.id }}" class="btn btn-outline-primary">{{ reservation.name }}</a>
+<a href="{{ url_for('coffee.book', reservation_id=reservation.id) }}" class="btn btn-outline-primary">{{ reservation.name }}</a>
 {% endfor %}
 </p>
 {% endfor %}

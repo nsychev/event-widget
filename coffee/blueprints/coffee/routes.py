@@ -24,9 +24,7 @@ def main():
                  contains_eager(Event.sections, Section.reservations)
              )
              .order_by(Section.id.asc(), Reservation.name.asc())
-             .first())
-
-    print(event, flush=True, file=__import__('sys').stderr)
+             .one())
 
     return flask.render_template(
         'main.html',
