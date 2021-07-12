@@ -26,6 +26,8 @@ def main():
              .order_by(Section.id.asc(), Reservation.name.asc())
              .first())
 
+    print(event, flush=True, file=__import__('sys').stderr)
+
     return flask.render_template(
         'main.html',
         event=event
