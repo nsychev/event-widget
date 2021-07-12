@@ -3,7 +3,7 @@
 {% block main %}
 <div class="container">
     <h1>Регистрация</h1>
-    <form method="POST" action="/register">
+    <form method="POST" action="">
         {{ form.csrf_token }}
         {{ render_field(form.name) }}
         <button class="btn btn-primary">Далее</button>
