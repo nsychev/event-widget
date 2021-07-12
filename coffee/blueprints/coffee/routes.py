@@ -34,6 +34,7 @@ def main():
 
 @coffee.route('/callback')
 def callback():
+    print(flask.request.headers, flush=True, file=__import__('sys').stderr)
     if not utils.verify(flask.request, flask.current_app.config['TELEGRAM']['token']):
         return flask.abort(400)
 
