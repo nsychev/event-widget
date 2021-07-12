@@ -13,7 +13,7 @@
 <h2>{{ section.name }}</h2>
 <p>
 {% for reservation in section.reservations %}
-<a href="/book/{{ reservation.id }}" class="book">{{ reservation.name }}</a>
+<a href="/book/{{ reservation.id }}" class="btn btn-outline-primary">{{ reservation.name }}</a>
 {% endfor %}
 </p>
 {% endfor %}
