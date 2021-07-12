@@ -155,3 +155,24 @@ def cancel(reservation_id):
         flask.url_for('coffee.main'),
         code=303
     )
+
+
+@coffee.route('/all-reservations')
+def reservations():
+    event = (flask.g.db.query(Event)
+             .join(Section, Event.sections, isouter=True)
+             .join(Reservation, Section.reservations, isouter=True)
+             .join(User, Reservation.user, isouter=True)
+             .filter(Reservation.user_id != None)
+             .options(
+                 contains_eager(Event.sections),
+                 contains_eager(Event.sections, Section.reservations),
+                 contains_eager(Event.sections, Section.reservations, Reservation.user)
+             )
+             .order_by(Section.id.asc(), Reservation.name.asc())
+             .one())
+
+    return flask.render_template(
+        'table.html',
+        event=event
+    )

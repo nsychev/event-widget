@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block main %}
+<h1>Все дела</h1>
+<table class="table">
+    <thead>
+        <th>Событие</th>
+        <th>Секция</th>
+        <th>Слот</th>
+        <th>Имя</th>
+        <th>Telegram</th>
+        <th>Telegram ID</th>
+    </thead>
+    <tbody>
+        {% for section in event.sections %}
+        {% for reservation in section.reservations %}
+        <tr>
+            <td>{{ event.name }}</td>
+            <td>{{ section.name }}</td>
+            <td>{{ reservation.name }}</td>
+            <td>{{ reservation.user.name }}</td>
+            <td>{{ reservation.user.telegram_info }}</td>
+            <td>{{ reservation.user.telegram_id }}</td>
+        </tr>
+        {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
