@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block main %}
+{% if user.reservations %}
+<h1>Запись</h1>
+
+<p>Вы записываетесь на <strong>{{ reservation.section.event.name }}</strong>.</p>
+<p>Комната: <strong>{{ reservation.section.name }}</strong></p>
+<p>Слот: <strong>{{ reservation.name }}</strong></p>
+<p>Вы уверены?</p>
+
+<p>
+    <form method="POST" action="">
+        <button class="btn btn-success">Подтвердить</button>
+    </form>
+    <a href="{{ url_for('coffee.main') }}" class="btn btn-text">Назад</a>
+</p>
+{% endblock %}

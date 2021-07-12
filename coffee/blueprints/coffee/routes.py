@@ -93,8 +93,10 @@ def book(reservation_id):
     reservation = (flask.g.db.query(Reservation)
                    .filter(Reservation.id == reservation_id)
                    .join(Section, Reservation.section, isouter=True)
+                   .join(Event, Section.event, isouter=True)
                    .options(
-                        contains_eager(Reservation.section)
+                        contains_eager(Reservation.section),
+                        contains_eager(Reservation.section, Section.event)
                    )
                    .one())
 
