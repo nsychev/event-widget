@@ -15,6 +15,7 @@ class User(Base):
 
     id = Column(BigInteger, primary_key=True)
     telegram_id = Column(BigInteger, unique=True, nullable=False)
+    telegram_info = Column(String())
     name = Column(String(32), nullable=False)
 
     reservations = relationship('Reservation', back_populates='user')

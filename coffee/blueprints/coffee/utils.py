@@ -18,3 +18,9 @@ def verify(request, token):
     ).hexdigest()
 
     return received_hash == actual_hash
+
+
+def get_info(request):
+    if 'username' in request.args:
+        return f'@{request.args["username"]}'
+    return f'{request.args.get("first_name", "")} {request.args.get("last_name", "")}'

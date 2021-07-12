@@ -51,6 +51,7 @@ def callback():
         )
     except NoResultFound:
         flask.session['telegram_id'] = telegram_id
+        flask.session['telegram_info'] = utils.get_info(flask.request)
 
         return flask.redirect(
             flask.url_for('coffee.register'),
