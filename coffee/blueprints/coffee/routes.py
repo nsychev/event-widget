@@ -160,7 +160,7 @@ def cancel(reservation_id):
 
 @coffee.route('/all-reservations')
 def reservations():
-    if flask.request.headers.get('authorization', None) != f'''Basic {flask.current_app.config.get("ADMIN_CREDENTIALS", "!")}':
+    if flask.request.headers.get('authorization', None) != f'Basic {flask.current_app.config.get("ADMIN_CREDENTIALS", "!")}':
         return flask.Response(
             "<h1>Access forbidden</h1>",
             401,
