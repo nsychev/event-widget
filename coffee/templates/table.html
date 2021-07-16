@@ -22,7 +22,7 @@
             <td>{{ reservation.user.name }}</td>
             <td>{{ reservation.user.telegram_info }}</td>
             <td>{{ reservation.user.telegram_id }}</td>
-            <td><a href="{{ url_for('sudo_cancel', reservation_id=reservation.id) }}" class="cancel">Удалить</a></td>
+            <td><a href="{{ url_for('coffee.sudo_cancel', reservation_id=reservation.id) }}" class="cancel">Удалить</a></td>
         </tr>
         {% endfor %}
         {% endfor %}
