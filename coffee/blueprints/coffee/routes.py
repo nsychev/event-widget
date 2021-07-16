@@ -183,13 +183,14 @@ def reservations():
     reservation_count = (flask.g.db.query(func.count(Reservation.id))
                          .join(Section, Reservation.section)
                          .filter(Section.event_id == event.id)
-                         .one())
+                         .filter(Reservation.user_id != None)
+                         .one())[0]
 
     user_count = (flask.g.db.query(func.count(User.id.distinct()))
                   .join(Reservation, User.reservations)
                   .join(Section, Reservation.section)
                   .filter(Section.event_id == event.id)
-                  .one())
+                  .one())[0]
 
     return flask.render_template(
         'table.html',

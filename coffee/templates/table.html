@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block main %}
 <h1>Все записи</h1>
+<p>Событие: <strong>{{ event.name }}</strong><br/>
 <p>Количество записей: <strong>{{ reservation_count }}</strong><br/>
    Количество пользователей: <strong>{{ user_count }}</strong></p>
 <table class="table">
     <thead>
-        <th>Событие</th>
         <th>Секция</th>
         <th>Слот</th>
         <th>Имя</th>
@@ -16,7 +16,6 @@
         {% for section in event.sections %}
         {% for reservation in section.reservations %}
         <tr>
-            <td>{{ event.name }}</td>
             <td>{{ section.name }}</td>
             <td>{{ reservation.name }}</td>
             <td>{{ reservation.user.name }}</td>
