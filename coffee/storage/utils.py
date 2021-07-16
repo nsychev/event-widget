@@ -22,6 +22,8 @@ def teardown_database(exc: Exception = None):
     database = flask.g.pop('db')
     if exc is None:
         database.commit()
+    else:
+        database.rollback()
 
 
 def get_engine(config):
