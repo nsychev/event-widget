@@ -1,5 +1,6 @@
 import flask
 
+from sqlalchemy import func
 from sqlalchemy.orm import contains_eager
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -159,6 +160,13 @@ def cancel(reservation_id):
 
 @coffee.route('/all-reservations')
 def reservations():
+    if flask.request.headers.get('authorization', None) != f'''Basic {flask.current_app.config.get("ADMIN_CREDENTIALS", "!")}':
+        return flask.Response(
+            "<h1>Access forbidden</h1>",
+            401,
+            {'WWW-Authenticate': 'Basic realm="Please proceed to the customs"'}
+        )
+
     event = (flask.g.db.query(Event)
              .join(Section, Event.sections, isouter=True)
              .join(Reservation, Section.reservations, isouter=True)
@@ -172,7 +180,20 @@ def reservations():
              .order_by(Section.id.asc(), Reservation.name.asc())
              .one())
 
+    reservation_count = (flask.g.db.query(func.count(Reservation.id))
+                         .join(Section, Reservation.section)
+                         .filter(Section.event_id == event.id)
+                         .one())
+
+    user_count = (flask.g.db.query(func.count(User.id.distinct()))
+                  .join(Reservation, User.reservations)
+                  .join(Section, Reservation.section)
+                  .filter(Section.event_id == event.id)
+                  .one())
+
     return flask.render_template(
         'table.html',
-        event=event
+        event=event,
+        reservation_count=reservation_count,
+        user_count=user_count
     )
