@@ -7,6 +7,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from ...storage.models import Event, Section, Reservation, User
 from . import utils
 from .blueprint import coffee
+from .decorators import require_authorization
 from .forms import RegistrationForm
 
 
@@ -158,15 +159,9 @@ def cancel(reservation_id):
     )
 
 
-@coffee.route('/all-reservations')
+@coffee.route('/admin/reservations')
+@require_authorization
 def reservations():
-    if flask.request.headers.get('authorization', None) != f'Basic {flask.current_app.config.get("ADMIN_CREDENTIALS", "!")}':
-        return flask.Response(
-            "<h1>Access forbidden</h1>",
-            401,
-            {'WWW-Authenticate': 'Basic realm="Please proceed to the customs"'}
-        )
-
     event = (flask.g.db.query(Event)
              .join(Section, Event.sections, isouter=True)
              .join(Reservation, Section.reservations, isouter=True)
@@ -197,4 +192,25 @@ def reservations():
         event=event,
         reservation_count=reservation_count,
         user_count=user_count
+    )
+
+
+@coffee.route('/admin/cancel/<int:reservation_id>')
+@require_authorization
+def sudo_cancel(reservation_id):
+    reservation = (flask.g.db.query(Reservation)
+                   .filter(Reservation.id == reservation_id)
+                   .join(Section, Reservation.section, isouter=True)
+                   .options(
+                        contains_eager(Reservation.section)
+                   )
+                   .one())
+
+    reservation.user_id = None
+    flask.g.db.add(reservation)
+    flask.g.db.commit()
+
+    return flask.redirect(
+        flask.url_for('coffee.reservations'),
+        code=303
     )

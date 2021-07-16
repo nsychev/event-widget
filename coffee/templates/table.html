@@ -22,7 +22,7 @@
             <td>{{ reservation.user.name }}</td>
             <td>{{ reservation.user.telegram_info }}</td>
             <td>{{ reservation.user.telegram_id }}</td>
-            <td><a href="/admin/cancel/{{ reservation.id }}" class="cancel">Удалить</a></td>
+            <td><a href="{{ url_for('sudo_cancel', reservation_id=reservation.id) }}" class="cancel">Удалить</a></td>
         </tr>
         {% endfor %}
         {% endfor %}
@@ -31,7 +31,7 @@
 <script>
     window.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.cancel').forEach(e => e.addEventListener('click', function(event) {
-            if (!confirm('Вы уверены?')) {
+            if (!confirm('Вы уверены?\n\nВосстановить запись будет невозможно. Совсем.')) {
                 event.preventDefault();
                 event.stopPropagation();
                 return false;
