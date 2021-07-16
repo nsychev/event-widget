@@ -11,6 +11,7 @@
         <th>Имя</th>
         <th>Telegram</th>
         <th>Telegram ID</th>
+        <th>Действия</th>
     </thead>
     <tbody>
         {% for section in event.sections %}
@@ -21,10 +22,22 @@
             <td>{{ reservation.user.name }}</td>
             <td>{{ reservation.user.telegram_info }}</td>
             <td>{{ reservation.user.telegram_id }}</td>
+            <td><a href="/admin/cancel/{{ reservation.id }}" class="cancel">Удалить</a></td>
         </tr>
         {% endfor %}
         {% endfor %}
     </tbody>
 </table>
+<script>
+    window.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.cancel').forEach(e => e.addEventListener('click', function(event) {
+            if (!confirm('Вы уверены?')) {
+                event.preventDefault();
+                event.stopPropagation();
+                return false;
+            }
+        }));
+    });
+</script>
 
 {% endblock %}
