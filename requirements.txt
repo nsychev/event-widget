@@ -2,6 +2,7 @@ flask
 flask-wtf
 gunicorn
 psycopg2-binary
+python-telegram-bot
 pyyaml
 sqlalchemy
 wtforms
